@@ -1,5 +1,5 @@
-import axios from "axios";
-import type { Note, NoteTag, CreateNoteParams } from "@/types/note";
+import axios from 'axios';
+import type { Note, NoteTag, CreateNoteParams } from '@/types/note';
 
 export interface FetchNotesResponse {
   notes: Note[];
@@ -11,14 +11,14 @@ export interface FetchNotesParams {
   perPage: number;
   search?: string;
   tag?: NoteTag;
-  sortBy?: "created" | "updated";
+  sortBy?: 'created' | 'updated';
 }
 
 function getAuthHeaders(): { Authorization: string } {
   const token = process.env.NEXT_PUBLIC_NOTEHUB_TOKEN;
 
   if (!token) {
-    throw new Error("NEXT_PUBLIC_NOTEHUB_TOKEN is not defined");
+    throw new Error('NEXT_PUBLIC_NOTEHUB_TOKEN is not defined');
   }
 
   return {
@@ -27,7 +27,7 @@ function getAuthHeaders(): { Authorization: string } {
 }
 
 const axiosInstance = axios.create({
-  baseURL: "https://notehub-public.goit.study/api",
+  baseURL: 'https://notehub-public.goit.study/api',
 });
 
 // Fetch notes list — SSR + CSR
@@ -36,7 +36,7 @@ export async function fetchNotes({
   perPage,
   search,
   tag,
-  sortBy = "created",
+  sortBy = 'created',
 }: FetchNotesParams): Promise<FetchNotesResponse> {
   const params = {
     page,
@@ -46,7 +46,7 @@ export async function fetchNotes({
     ...(sortBy ? { sortBy } : {}),
   };
 
-  const response = await axiosInstance.get<FetchNotesResponse>("/notes", {
+  const response = await axiosInstance.get<FetchNotesResponse>('/notes', {
     params,
     headers: getAuthHeaders(),
   });
@@ -56,7 +56,7 @@ export async function fetchNotes({
 
 // Create note — CSR mutation
 export async function addNote(payload: CreateNoteParams): Promise<Note> {
-  const response = await axiosInstance.post<Note>("/notes", payload, {
+  const response = await axiosInstance.post<Note>('/notes', payload, {
     headers: getAuthHeaders(),
   });
 
