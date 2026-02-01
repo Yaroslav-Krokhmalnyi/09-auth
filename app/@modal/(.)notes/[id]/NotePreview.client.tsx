@@ -1,18 +1,18 @@
-"use client";
+'use client';
 
 // Liberis
-import { useQuery } from "@tanstack/react-query";
-import { useRouter } from "next/navigation";
+import { useQuery } from '@tanstack/react-query';
+import { useRouter } from 'next/navigation';
 import { useParams } from 'next/navigation';
 
 // Styles
-import css from "./NotePreview.module.css";
+import css from './NotePreview.module.css';
 
 // API
-import { fetchNoteById } from "@/lib/api";
+import { fetchNoteById } from '@/lib/api/api';
 
 //Components
-import Modal from "@/components/Modal/Modal";
+import Modal from '@/components/Modal/Modal';
 
 // Types
 type ErrorProps = {
@@ -20,21 +20,24 @@ type ErrorProps = {
 };
 
 const NotePreviewClient = () => {
-	const { id } = useParams<{ id: string }>();
+  const { id } = useParams<{ id: string }>();
   const router = useRouter();
   const handleClose = () => router.back();
-  
 
-  const { data: note, isLoading, error } = useQuery({
-    queryKey: ["note", id],
+  const {
+    data: note,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ['note', id],
     queryFn: () => fetchNoteById(id),
     refetchOnMount: false,
   });
 
   if (isLoading) return <p>Loading, please wait...</p>;
   if (error instanceof Error || !note) {
-  return <p>Something went wrong.</p>; 
-}
+    return <p>Something went wrong.</p>;
+  }
 
   const formattedDate = note.updatedAt
     ? `Updated at: ${new Date(note.updatedAt).toLocaleDateString('uk-UA')}`
@@ -51,7 +54,9 @@ const NotePreviewClient = () => {
           <p className={css.content}>{note.content}</p>
           <p className={css.date}>{formattedDate}</p>
         </div>
-        <button type="button" className={css.backBtn} onClick={handleClose}>Back</button>
+        <button type='button' className={css.backBtn} onClick={handleClose}>
+          Back
+        </button>
       </div>
     </Modal>
   );

@@ -1,20 +1,20 @@
 // components/NoteList/NoteList.tsx
 
-"use client";
+'use client';
 
 // Styles
-import css from "./NoteList.module.css";
+import css from './NoteList.module.css';
 
 // React components
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 // Next.js components
-import Link from "next/link";
+import Link from 'next/link';
 
-import { deleteNote } from "@/lib/api";
+import { deleteNote } from '@/lib/api/api';
 
 // Types
-import type { Note } from "@/types/note";
+import type { Note } from '@/types/note';
 
 interface NoteListProps {
   notes: Note[];
@@ -26,7 +26,7 @@ export default function NoteList({ notes }: NoteListProps) {
   const mutation = useMutation({
     mutationFn: (id: string) => deleteNote(id),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["notes"] });
+      queryClient.invalidateQueries({ queryKey: ['notes'] });
     },
   });
 
@@ -47,7 +47,7 @@ export default function NoteList({ notes }: NoteListProps) {
 
             <button
               className={css.button}
-              type="button"
+              type='button'
               onClick={() => mutation.mutate(note.id)}
               disabled={mutation.isPending}
             >

@@ -1,18 +1,18 @@
 // Meta
-import { Metadata } from "next"
+import { Metadata } from 'next';
 
 // Liberis
 import {
   dehydrate,
   HydrationBoundary,
   QueryClient,
-} from "@tanstack/react-query";
+} from '@tanstack/react-query';
 
 // API
-import { fetchNoteById } from "@/lib/api";
+import { fetchNoteById } from '@/lib/api/api';
 
 // Components
-import NoteDetailsClient from "./NoteDetails.client";
+import NoteDetailsClient from './NoteDetails.client';
 
 // Types
 type NoteDetailsPageProps = {
@@ -21,10 +21,12 @@ type NoteDetailsPageProps = {
   }>;
 };
 
-export async function generateMetadata({ params }: NoteDetailsPageProps): Promise<Metadata> {
-  const { id } = await params
-  const note = await fetchNoteById(id)
-  
+export async function generateMetadata({
+  params,
+}: NoteDetailsPageProps): Promise<Metadata> {
+  const { id } = await params;
+  const note = await fetchNoteById(id);
+
   return {
     title: `Note: ${note.title}`,
     description: note.content.slice(0, 30),
@@ -42,16 +44,18 @@ export async function generateMetadata({ params }: NoteDetailsPageProps): Promis
       ],
       type: 'website',
     },
-  }
+  };
 }
 
-export default async function NoteDetailsPage({ params }: NoteDetailsPageProps) {
+export default async function NoteDetailsPage({
+  params,
+}: NoteDetailsPageProps) {
   const { id } = await params;
 
   const queryClient = new QueryClient();
 
   await queryClient.prefetchQuery({
-    queryKey: ["note", id],
+    queryKey: ['note', id],
     queryFn: () => fetchNoteById(id),
   });
 
@@ -61,4 +65,3 @@ export default async function NoteDetailsPage({ params }: NoteDetailsPageProps) 
     </HydrationBoundary>
   );
 }
-

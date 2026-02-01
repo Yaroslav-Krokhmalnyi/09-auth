@@ -1,15 +1,18 @@
 // Liberis
-import { QueryClient, HydrationBoundary,
-  dehydrate, } from "@tanstack/react-query";
+import {
+  QueryClient,
+  HydrationBoundary,
+  dehydrate,
+} from '@tanstack/react-query';
 
 // Styles
 import css from './NotePreview.module.css';
 
 // API
-import { fetchNoteById } from "@/lib/api";
+import { fetchNoteById } from '@/lib/api/api';
 
 //Components
-import NotePreviewClient from "./NotePreview.client";
+import NotePreviewClient from './NotePreview.client';
 
 // Types
 type NotePreviewProps = {
@@ -21,14 +24,15 @@ const NotePreview = async ({ params }: NotePreviewProps) => {
   const queryClient = new QueryClient();
 
   await queryClient.prefetchQuery({
-    queryKey: ["note", id],
+    queryKey: ['note', id],
     queryFn: () => fetchNoteById(id),
   });
 
-  return (<HydrationBoundary state={dehydrate(queryClient)}>
+  return (
+    <HydrationBoundary state={dehydrate(queryClient)}>
       <NotePreviewClient />
-    </HydrationBoundary>);
+    </HydrationBoundary>
+  );
 };
 
 export default NotePreview;
-

@@ -1,34 +1,36 @@
-// components/Header/Header.tsx
-
-"use client";
+'use client';
 
 // Styles
-import css from "./Header.module.css";
+import css from './Header.module.css';
 
 // Next.js components
-import Link from "next/link";
+import Link from 'next/link';
+
+// Components
+import AuthNavigation from '@/components/AuthNavigation/AuthNavigation';
 
 export default function Header() {
   return (
     <header className={css.header}>
-        <Link href="/" aria-label="Home" className={css.headerLink}>
-          NoteHub
-        </Link>
+      <Link href='/' aria-label='Home' className={css.headerLink}>
+        NoteHub
+      </Link>
 
-        <nav aria-label="Main Navigation">
-          <ul className={css.navigation}>
-            <li className={css.navigationItem}>
-              <Link href="/" className={css.navigationLink}>
-                Home
-              </Link>
-            </li>
-            <li className={css.navigationItem}>
-              <Link href="/notes/filter/all" className={css.navigationLink}>
-                Notes
-              </Link>
-            </li>
-          </ul>
-        </nav>
+      <nav aria-label='Main Navigation'>
+        <ul className={css.navigation}>
+          <li className={css.navigationItem}>
+            <Link href='/' className={css.navigationLink}>
+              Home
+            </Link>
+          </li>
+          <li className={css.navigationItem}>
+            <Link href='/notes/filter/all' className={css.navigationLink}>
+              Notes
+            </Link>
+          </li>
+          <AuthNavigation />
+        </ul>
+      </nav>
     </header>
   );
 }

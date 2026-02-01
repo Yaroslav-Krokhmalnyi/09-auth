@@ -14,20 +14,9 @@ export interface FetchNotesParams {
   sortBy?: 'created' | 'updated';
 }
 
-function getAuthHeaders(): { Authorization: string } {
-  const token = process.env.NEXT_PUBLIC_NOTEHUB_TOKEN;
-
-  if (!token) {
-    throw new Error('NEXT_PUBLIC_NOTEHUB_TOKEN is not defined');
-  }
-
-  return {
-    Authorization: `Bearer ${token}`,
-  };
-}
-
-const axiosInstance = axios.create({
-  baseURL: 'https://notehub-public.goit.study/api',
+export const nextServer = axios.create({
+  baseURL: `${process.env.NEXT_PUBLIC_API_URL}/api`,
+  withCredentials: true,
 });
 
 // Fetch notes list — SSR + CSR
@@ -46,9 +35,8 @@ export async function fetchNotes({
     ...(sortBy ? { sortBy } : {}),
   };
 
-  const response = await axiosInstance.get<FetchNotesResponse>('/notes', {
+  const response = await nextServer.get<FetchNotesResponse>('/notes', {
     params,
-    headers: getAuthHeaders(),
   });
 
   return response.data;
@@ -56,36 +44,28 @@ export async function fetchNotes({
 
 // Create note — CSR mutation
 export async function addNote(payload: CreateNoteParams): Promise<Note> {
-  const response = await axiosInstance.post<Note>('/notes', payload, {
-    headers: getAuthHeaders(),
-  });
+  const response = await nextServer.post<Note>('/notes', payload, {});
 
   return response.data;
 }
 
 // Delete note — MUST return deleted Note (mentor requirement)
 export async function deleteNote(id: string): Promise<Note> {
-  const response = await axiosInstance.delete<Note>(`/notes/${id}`, {
-    headers: getAuthHeaders(),
-  });
+  const response = await nextServer.delete<Note>(`/notes/${id}`, {});
 
   return response.data;
 }
 
 // Fetch note by ID — SSR + CSR
 export async function fetchNoteById(id: string): Promise<Note> {
-  const response = await axiosInstance.get<Note>(`/notes/${id}`, {
-    headers: getAuthHeaders(),
-  });
+  const response = await nextServer.get<Note>(`/notes/${id}`, {});
 
   return response.data;
 }
 
 // Getcategories
 export async function getCategories(id: string): Promise<Note> {
-  const response = await axiosInstance.get<Note>(`/notes/${id}`, {
-    headers: getAuthHeaders(),
-  });
+  const response = await nextServer.get<Note>(`/notes/${id}`, {});
 
   return response.data;
 }
