@@ -11,7 +11,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 // Next.js components
 import Link from 'next/link';
 
-import { deleteNote } from '@/lib/api/api';
+import { deleteNote } from '@/lib/api/clientApi';
 
 // Types
 import type { Note } from '@/types/note';

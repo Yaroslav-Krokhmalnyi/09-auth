@@ -8,6 +8,9 @@ import Image from 'next/image';
 // Meta
 import { Metadata } from 'next';
 
+// API
+import { getMe } from '@/lib/api/serverApi';
+
 export const metadata: Metadata = {
   title: 'Profile',
   description: 'Profile in NoteHub.',
@@ -27,7 +30,9 @@ export const metadata: Metadata = {
   },
 };
 
-export default function Profile() {
+export default async function Profile() {
+  const user = await getMe();
+
   return (
     <main className={css.mainContent}>
       <div className={css.profileCard}>
@@ -39,7 +44,7 @@ export default function Profile() {
         </div>
         <div className={css.avatarWrapper}>
           <Image
-            src='Avatar'
+            src={user.avatar}
             alt='User Avatar'
             width={120}
             height={120}
@@ -47,8 +52,8 @@ export default function Profile() {
           />
         </div>
         <div className={css.profileInfo}>
-          <p>Username: your_username</p>
-          <p>Email: your_email@example.com</p>
+          <p>Username: {user.username}</p>
+          <p>Email: {user.email}</p>
         </div>
       </div>
     </main>

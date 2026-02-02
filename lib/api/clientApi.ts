@@ -56,12 +56,6 @@ export async function fetchNoteById(id: string): Promise<Note> {
   return response.data;
 }
 
-export async function getCategories(id: string): Promise<Note> {
-  const response = await nextServer.get<Note>(`/notes/${id}`, {});
-
-  return response.data;
-}
-
 export async function addNote(payload: CreateNoteParams): Promise<Note> {
   const response = await nextServer.post<Note>('/notes', payload, {});
 
@@ -98,16 +92,30 @@ type CheckSessionRequest = {
   success: boolean;
 };
 
-export const checkSession = async () => {
-  const res = await nextServer.get<CheckSessionRequest>('/auth/session');
-  return res.data.success;
+export const checkSession = async (): Promise<User | null> => {
+  try {
+    const { data } = await nextServer.get<User>('/auth/session');
+    return data ?? null;
+  } catch {
+    return null;
+  }
 };
 
 export const getMe = async () => {
-  const { data } = await nextServer.get<User>('/auth/me');
+  const { data } = await nextServer.get<User>('/users/me');
   return data;
 };
 
 export const logout = async (): Promise<void> => {
   await nextServer.post('/auth/logout');
+};
+
+export type updateMeProps = {
+  username?: string;
+  photoUrl?: string;
+};
+
+export const updateMe = async (payload: updateMeProps): Promise<User> => {
+  const { data } = await nextServer.patch<User>('/users/me', payload);
+  return data;
 };

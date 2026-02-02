@@ -17,7 +17,7 @@ import { useDebounce } from 'use-debounce';
 import { useQuery, keepPreviousData } from '@tanstack/react-query';
 
 // API
-import { fetchNotes } from '@/lib/api/api';
+import { fetchNotes } from '@/lib/api/clientApi';
 
 // Components
 import SearchBox from '@/components/SearchBox/SearchBox';
