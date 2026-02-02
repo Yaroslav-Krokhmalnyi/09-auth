@@ -1,7 +1,7 @@
 // app/notes/filter/layout.tsx
 
 // Styles
-import css from '@/app/notes/filter/LayoutNotes.module.css'
+import css from '@/app/(private routes)/notes/filter/LayoutNotes.module.css';
 
 // Types
 type NotesLayoutProps = {
