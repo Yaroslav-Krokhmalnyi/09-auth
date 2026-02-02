@@ -6,7 +6,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import * as Yup from 'yup';
 
 // API
-import { addNote } from '@/lib/api/api';
+import { addNote } from '@/lib/api/clientApi';
 
 // Zustand store
 import useDraftStore from '@/lib/store/noteStore';

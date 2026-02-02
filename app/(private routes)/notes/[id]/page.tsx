@@ -9,7 +9,7 @@ import {
 } from '@tanstack/react-query';
 
 // API
-import { fetchNoteById } from '@/lib/api/api';
+import { fetchNoteById } from '@/lib/api/serverApi';
 
 // Components
 import NoteDetailsClient from './NoteDetails.client';
