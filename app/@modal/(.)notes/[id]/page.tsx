@@ -9,7 +9,7 @@ import {
 import css from './NotePreview.module.css';
 
 // API
-import { fetchNoteById } from '@/lib/api/api';
+import { fetchNoteById } from '@/lib/api/serverApi';
 
 //Components
 import NotePreviewClient from './NotePreview.client';

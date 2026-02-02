@@ -9,7 +9,7 @@ import { useParams } from 'next/navigation';
 import css from './NotePreview.module.css';
 
 // API
-import { fetchNoteById } from '@/lib/api/api';
+import { fetchNoteById } from '@/lib/api/clientApi';
 
 //Components
 import Modal from '@/components/Modal/Modal';
