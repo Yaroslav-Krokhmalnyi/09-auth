@@ -112,7 +112,6 @@ export const logout = async (): Promise<void> => {
 
 export type updateMeProps = {
   username?: string;
-  photoUrl?: string;
 };
 
 export const updateMe = async (payload: updateMeProps): Promise<User> => {
