@@ -56,7 +56,7 @@ export async function fetchNoteById(id: string): Promise<Note> {
   return response.data;
 }
 
-export async function addNote(payload: CreateNoteParams): Promise<Note> {
+export async function createNote(payload: CreateNoteParams): Promise<Note> {
   const response = await nextServer.post<Note>('/notes', payload, {});
 
   return response.data;
@@ -110,11 +110,11 @@ export const logout = async (): Promise<void> => {
   await nextServer.post('/auth/logout');
 };
 
-export type updateMeProps = {
+export type UpdateMeProps = {
   username?: string;
 };
 
-export const updateMe = async (payload: updateMeProps): Promise<User> => {
+export const updateMe = async (payload: UpdateMeProps): Promise<User> => {
   const { data } = await nextServer.patch<User>('/users/me', payload);
   return data;
 };

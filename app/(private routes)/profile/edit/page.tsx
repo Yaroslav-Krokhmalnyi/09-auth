@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 
+import { useAuthStore } from '@/lib/store/authStore';
+
 // API
 import { getMe, updateMe } from '@/lib/api/clientApi';
 
@@ -17,6 +19,7 @@ const EditProfilePage = () => {
   const router = useRouter();
   const [user, setUser] = useState<User | null>(null);
   const [username, setUsername] = useState('');
+  const setAuthUser = useAuthStore((state) => state.setUser);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -30,7 +33,11 @@ const EditProfilePage = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    await updateMe({ username });
+
+    const updatedUser = await updateMe({ username });
+
+    setAuthUser(updatedUser);
+
     router.push('/profile');
   };
 

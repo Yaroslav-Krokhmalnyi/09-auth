@@ -6,7 +6,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import * as Yup from 'yup';
 
 // API
-import { addNote } from '@/lib/api/clientApi';
+import { createNote } from '@/lib/api/clientApi';
 
 // Zustand store
 import useDraftStore from '@/lib/store/noteStore';
@@ -63,7 +63,7 @@ export default function NoteForm({ categories }: NoteFormProps) {
   };
 
   const { mutate, isPending } = useMutation({
-    mutationFn: addNote,
+    mutationFn: createNote,
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ['notes'],

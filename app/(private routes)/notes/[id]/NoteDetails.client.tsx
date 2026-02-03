@@ -6,10 +6,6 @@ import { useParams } from 'next/navigation';
 import { fetchNoteById } from '@/lib/api/clientApi';
 import css from './NoteDetails.module.css';
 
-interface NoteDetailsClientProps {
-  id: string;
-}
-
 export default function NoteDetailsClient() {
   const router = useRouter();
   const handleClose = () => router.push('/notes/filter/all');
@@ -35,7 +31,7 @@ export default function NoteDetailsClient() {
 
   const formattedDate = note.updatedAt
     ? `Updated at: ${new Date(note.updatedAt).toLocaleDateString('uk-UA')}`
-    : `Created at: ${new Date(note.createdAt).toLocaleDateString('uk-UA')}}`;
+    : `Created at: ${new Date(note.createdAt).toLocaleDateString('uk-UA')}`;
 
   return (
     <main className={css.main}>
